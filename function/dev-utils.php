@@ -17,9 +17,12 @@ function do_loop($fn, $query_args=null, $enable_pagination=true)
 	$query = ($query_args == null ? $wp_query : new WP_Query($query_args));
 	
 	if ($query->have_posts()) {
+		$post_count = $query->post_count;
+		$index = 0;
 		while ($query->have_posts()) {
 			$query->the_post();
 			$fn();
+			$index++;
 		}
 		?>
 

@@ -75,6 +75,13 @@ register_sidebar(array(
 	'after_title' => '</h3>'
 ));
 
+// Allow svg upload
+function cc_mime_types($mimes) {
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');
+
 // Enqueue_styles
 if (!function_exists('SKL_load_styles')) {
 	function SKL_load_styles() 

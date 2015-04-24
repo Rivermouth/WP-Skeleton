@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Return translation of given slug
+ */
 function _text($slug)
 {
 	$c = skl();

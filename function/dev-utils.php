@@ -32,7 +32,8 @@ function do_loop($fn, $query_args=null, $enable_pagination=true)
 			<div class="nav-previous alignright"><?php next_posts_link( _text('pagination-prev') ); ?></div>
 		</div>
 		<?php endif; ?>
-<?php
+
+    <?php
 		wp_reset_postdata();
 	}
 	else {

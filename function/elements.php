@@ -26,6 +26,26 @@ function el_publish_date_meta()
 <?php
 }
 
+function el_keywords_meta()
+{
+	$posttags = get_the_tags();
+	if ($posttags) {
+		$keywords = null;
+		foreach($posttags as $tag) {
+			if ($keywords == null) {
+				$keywords = '';
+			}
+			else {
+				$keywords .= ',';
+			}
+			$keywords .= $tag->name; 
+		}
+		?>
+			<meta itemprop="keywords" content="<?php echo $keywords; ?>">
+		<?php
+	}
+}
+
 function el_author_link() 
 {
 ?>
@@ -103,6 +123,53 @@ function el_content($wrap_thumb_in_post_link=false)
 		<?php the_content(_text('read-more')); ?>
 	</div>
 <?php
+}
+
+if ( ! function_exists( 'el_comment_nav' ) ) {
+	function el_comment_nav() 
+	{
+		// Are there comments to navigate through?
+		if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
+		?>
+		<nav class="navigation comment-navigation" role="navigation">
+			<div class="nav-links">
+				<?php
+					if ( $prev_link = get_previous_comments_link( __( 'Older Comments', 'twentyfifteen' ) ) ) {
+						printf( '<div class="nav-previous">%s</div>', $prev_link );
+					}
+
+					if ( $next_link = get_next_comments_link( __( 'Newer Comments', 'twentyfifteen' ) ) ) {
+						printf( '<div class="nav-next">%s</div>', $next_link );
+					}
+				?>
+			</div>
+		</nav>
+		<?php
+		endif;
+	}
+}
+
+function el_menu($menu_name='primary', $parse_fn=null) 
+{
+    if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
+		$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+		$menu_items = wp_get_nav_menu_items($menu->term_id);
+		$out = '';
+		foreach ( (array) $menu_items as $key => $menu_item ) {
+			$title = $menu_item->title;
+			$url = $menu_item->url;
+			if ($parse_fn != null) {
+				$parse_fn($menu_item);
+			}
+			else {
+				echo '<li><a href="' . $url . '" title="' . $title . '">' . $title . '</a></li>';
+			}
+		}
+		echo ($parse_fn != null ? $out : '<ul id="menu-' . $menu_name . '">' . $out . '</ul>');
+	} 
+	else {
+		echo '<ul><li>Menu "' . $menu_name . '" not defined.</li></ul>';
+    }
 }
 
 function el_sidebar($name) 

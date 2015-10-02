@@ -101,20 +101,25 @@ function add_opengraph_doctype( $output ) {
 add_filter('language_attributes', 'add_opengraph_doctype');
 
 //Lets add Open Graph Meta Info
+
+if (!function_exists('get_og_description')) {
+	function get_og_description() {
+		if (is_singular()) {
+			global $post;
+			setup_postdata($post);
+			$cont = get_the_excerpt();
+			wp_reset_postdata();
+			return $cont;
+		}
+		else {
+			return get_bloginfo('description');
+		}
+	}
+}
 function insert_fb_in_head() {
 	global $post;
 	
 	$thumbUrl;
-	$cont;
-	
-	if (is_singular()) {
-		setup_postdata($post);
-		$cont = get_the_excerpt();
-		wp_reset_postdata();
-	}
-	else {
-		$cont = get_bloginfo('description');
-	}
 	
 	if ( !is_singular()) //if it is not a post or a page
 		return;
@@ -122,7 +127,7 @@ function insert_fb_in_head() {
 	//echo '<meta property="fb:admins" content="YOUR USER ID"/>';
 	echo '<meta property="og:title" content="' . get_the_title() . '"/>';
 	echo '<meta property="og:type" content="article"/>';
-	echo '<meta property="og:description" content="' . $cont . '"/>';
+	echo '<meta property="og:description" content="' . get_og_description() . '"/>';
 	echo '<meta property="og:url" content="' . get_permalink() . '"/>';
 	echo '<meta property="og:site_name" content="' . get_bloginfo('name') . '"/>';
 	

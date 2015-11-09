@@ -95,27 +95,28 @@ if (!function_exists('el_categories')) {
 }
 
 if (!function_exists('el_content_thumbnail')) {
-	function el_content_thumbnail($do_wrap_in_post_link=false) 
+	function el_content_thumbnail($do_wrap_in_post_link=false, $thumbnail_size='large') 
 	{
 		if (has_post_thumbnail()) {
+			global $post_id;
 			if ($do_wrap_in_post_link) echo '<a href="' . get_permalink( $post_id ) . '" title="' . esc_attr( get_the_title( $post_id ) ) . '">';
 			else {
 				$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 				echo '<a href="' . $large_image_url[0] . '" title="' . the_title_attribute( 'echo=0' ) . '">';
 			}
-			the_post_thumbnail('large');
+			the_post_thumbnail($thumbnail_size);
 			echo '</a>';
 		}
 	}
 }
 	
-function el_content($wrap_thumb_in_post_link=false) 
+function el_content($wrap_thumb_in_post_link=false, $thumbnail_size='large') 
 {
 ?>
 	<div class="thumbnail featured-image">
 		<?php if (has_post_thumbnail()) : ?>
 			<?php el_content_thumbnail($wrap_thumb_in_post_link); ?>
-			<meta itemprop="thumbnailURL" content="<?php echo wp_get_attachment_url(get_post_thumbnail_id(get_the_ID())); ?>" />
+			<meta itemprop="thumbnailURL" content="<?php echo get_feature_image_url(); ?>" />
 		<?php endif; ?>
 	</div>
 

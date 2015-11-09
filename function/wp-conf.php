@@ -1,5 +1,7 @@
 <?php
 
+global $wp_skeleton_settings;
+
 // Drag and drop menu support
 register_nav_menu('primary', 'Primary Menu');
 
@@ -9,71 +11,73 @@ add_theme_support('post-thumbnails');
 // Apply do_shortcode() to widgets so that shortcodes will be executed in widgets
 add_filter('widget_text', 'do_shortcode');
 
-// Widget area for main sidebar
-register_sidebar(array(
-	'name' => 'Main Sidebar',
-	'id' => 'sidebar-main',
-	'description' => 'Widget area for main sidebar',
-	'before_widget' => '<div id="%1$s">',
-	'after_widget'  => '</div>',
-	'before_title' => '<h3>',
-	'after_title' => '</h3>'
-));
+if ($wp_skeleton_settings->use_default_sidebars) {
+	// Widget area for main sidebar
+	register_sidebar(array(
+		'name' => 'Main Sidebar',
+		'id' => 'sidebar-main',
+		'description' => 'Widget area for main sidebar',
+		'before_widget' => '<div id="%1$s">',
+		'after_widget'  => '</div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>'
+	));
 
-// Widget area for footer
-register_sidebar(array(
-	'name' => 'Footer',
-	'id' => 'sidebar-footer',
-	'description' => 'Widget area for footer',
-	'before_widget' => '<div id="%1$s">',
-	'after_widget'  => '</div>',
-	'before_title' => '<h3>',
-	'after_title' => '</h3>'
-));
+	// Widget area for footer
+	register_sidebar(array(
+		'name' => 'Footer',
+		'id' => 'sidebar-footer',
+		'description' => 'Widget area for footer',
+		'before_widget' => '<div id="%1$s">',
+		'after_widget'  => '</div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>'
+	));
 
-// Widget area for top menu
-register_sidebar(array(
-	'name' => 'Top Menu',
-	'id' => 'sidebar-top-menu',
-	'description' => 'Widget area for top menu',
-	'before_widget' => '<div id="%1$s">',
-	'after_widget'  => '</div>',
-	'before_title' => '<h3>',
-	'after_title' => '</h3>'
-));
+	// Widget area for top menu
+	register_sidebar(array(
+		'name' => 'Top Menu',
+		'id' => 'sidebar-top-menu',
+		'description' => 'Widget area for top menu',
+		'before_widget' => '<div id="%1$s">',
+		'after_widget'  => '</div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>'
+	));
 
-// Widget area for front page header
-register_sidebar(array(
-	'name' => 'Front Page Header',
-	'id' => 'sidebar-header-page-front',
-	'description' => 'Widget area for front page header',
-	'before_widget' => '<div id="%1$s">',
-	'after_widget'  => '</div>',
-	'before_title' => '<h3>',
-	'after_title' => '</h3>'
-));
+	// Widget area for front page header
+	register_sidebar(array(
+		'name' => 'Front Page Header',
+		'id' => 'sidebar-header-page-front',
+		'description' => 'Widget area for front page header',
+		'before_widget' => '<div id="%1$s">',
+		'after_widget'  => '</div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>'
+	));
 
-// Widget area for blog page header
-register_sidebar(array(
-	'name' => 'Blog Page Header',
-	'id' => 'sidebar-header-page-blog',
-	'description' => 'Widget area for blog page header',
-	'before_widget' => '<div id="%1$s">',
-	'after_widget'  => '</div>',
-	'before_title' => '<h3>',
-	'after_title' => '</h3>'
-));
+	// Widget area for blog page header
+	register_sidebar(array(
+		'name' => 'Blog Page Header',
+		'id' => 'sidebar-header-page-blog',
+		'description' => 'Widget area for blog page header',
+		'before_widget' => '<div id="%1$s">',
+		'after_widget'  => '</div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>'
+	));
 
-// Widget area for header (no front page nor blog page)
-register_sidebar(array(
-	'name' => 'Header (other)',
-	'id' => 'sidebar-header-other',
-	'description' => 'Widget area for header (no front page nor blog page)',
-	'before_widget' => '<div id="%1$s">',
-	'after_widget'  => '</div>',
-	'before_title' => '<h3>',
-	'after_title' => '</h3>'
-));
+	// Widget area for header (no front page nor blog page)
+	register_sidebar(array(
+		'name' => 'Header (other)',
+		'id' => 'sidebar-header-other',
+		'description' => 'Widget area for header (no front page nor blog page)',
+		'before_widget' => '<div id="%1$s">',
+		'after_widget'  => '</div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>'
+	));
+}
 
 // Allow svg upload
 function cc_mime_types($mimes) {

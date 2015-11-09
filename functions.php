@@ -3,6 +3,9 @@
  * Functions
  */
 
+require_once(get_template_directory() . '/WPSkeleton.php');
+
+$wp_skeleton_settings = new WPSkeleton\Settings();
 
 function get_fn($name) 
 {
@@ -35,10 +38,10 @@ get_fn('text');
 get_fn('elements');
 get_fn('shortcodes');
 
-get_fn('wp-conf');
-
 if (function_exists('init_child')) {
 	init_child();
 }
+
+get_fn('wp-conf');
 
 ?>

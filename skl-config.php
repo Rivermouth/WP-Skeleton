@@ -11,6 +11,7 @@ if (!class_exists('SKLConfig')) {
 			
 			'text' => array(
 				'en' => array(
+					'all' => 'All',
 					'reply' => 'Reply',
 					'send' => 'Send',
 					'name' => 'Name',
@@ -30,6 +31,7 @@ if (!class_exists('SKLConfig')) {
 					'leave-a-reply-to-%s' => 'Leave a reply to %s',
 				),
 				'fi' => array(
+					'all' => 'Kaikki',
 					'reply' => 'Vastaa',
 					'send' => 'Lähetä',
 					'name' => 'Nimi',

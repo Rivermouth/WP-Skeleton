@@ -11,7 +11,7 @@ function get_util($slug, $name=null)
 }
 
 // Great site for generating queries: http://generatewp.com/wp_query/
-function do_loop($fn, $query_args=null, $enable_pagination=true) 
+function do_loop($fn, $query_args=null, $enable_pagination=true, &$fn_args=null) 
 {
 	global $wp_query;
 	$query = ($query_args == null ? $wp_query : new WP_Query($query_args));
@@ -21,7 +21,7 @@ function do_loop($fn, $query_args=null, $enable_pagination=true)
 		$index = 0;
 		while ($query->have_posts()) {
 			$query->the_post();
-			$fn();
+			$fn($fn_args);
 			$index++;
 		}
 		?>

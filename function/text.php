@@ -13,7 +13,7 @@ function _text($slug)
 	else {
 		$arr = $c['text'][$c['default_lang']];
 	}
-	return $arr[$slug];
+	return isset($arr[$slug]) ? $arr[$slug] : $slug;
 }
 
 function _format($type) 

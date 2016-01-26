@@ -4,6 +4,7 @@
 <head>
 
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
 
 	<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 	<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->

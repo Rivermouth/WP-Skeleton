@@ -14,7 +14,16 @@ function get_util($slug, $name=null)
 function do_loop($fn, $query_args=null, $enable_pagination=true, &$fn_args=null)
 {
 	global $wp_query;
-	$query = ($query_args == null ? $wp_query : new WP_Query($query_args));
+	global $post;
+	$original_post = null;
+
+	if ($query_args == null) {
+	    $query = $wp_query;
+	}
+	else {
+	    $query = new WP_Query($query_args);
+	    $original_post = $post;
+	}
 
 	if ($query->have_posts()) {
 		$post_count = $query->post_count;
@@ -33,8 +42,11 @@ function do_loop($fn, $query_args=null, $enable_pagination=true, &$fn_args=null)
 		</div>
 		<?php endif; ?>
 
-    <?php
-		wp_reset_postdata();
+		<?php
+		if ($original_post != null) {
+			$post = $original_post;
+			setup_postdata($post);
+		}
 	}
 	else {
 		_text('no-posts-found');
